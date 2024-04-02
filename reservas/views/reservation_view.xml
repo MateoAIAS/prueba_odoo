@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <record id="view_reservation_form_reservas" model="ir.ui.view">
+            <field name="name">reservation.form.reservas</field>
+            <field name="model">reservas.reservation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <div class="oe_title oe_inline">
+                                <label for="name"/>
+                                <h1><field name="name"/></h1>
+                            </div>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="user_id"/>
+                                <field name="room_id"/>
+                                <field name="states"/>
+                                <field name="have_catering"/>
+                            </group>
+                            <group>
+                                <field name="chair_amount"/>
+                                <field name="table_amount"/>
+                                <field name="start_hour"/>
+                                <field name="end_hour"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_kanban_reservation_reservas" model="ir.ui.view">
+            <field name="name">view.kanban.reservation.reservas</field>
+            <field name="model">reservas.reservation</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="states" />
+                    <field name="partner_id" />
+                    <field name="start_hour" />
+                    <field name="end_hour" />
+                    <field name="room_name" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_details">
+                                <div><strong><field name="states"/></strong></div>
+                                <div><field name="partner_id"/></div>
+                                <div><field name="start_hour"/></div>
+                                <div><field name="end_hour"/></div>
+                                <div><field name="room_name" /></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="reservation_action_from_reservas" model="ir.actions.act_window">
+            <field name="name">resevation.action.from_reservas</field>
+            <field name="res_model">reservas.reservation</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="view_id" ref="view_kanban_reservation_reservas"/>
+        </record>
+
+        <menuitem
+            id="reservas_reservation_menu"
+            name="Resevas"
+            sequence="2"
+            web_icon="reservas,static/description/icon.png"
+            action="reservation_action_from_reservas"/>
+    </data>
+</odoo>
